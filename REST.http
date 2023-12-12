@@ -1,0 +1,31 @@
+# POST http://localhost:3001 HTTP/1.1
+# content-type: application/json
+# {
+#     "username": "Test",
+#     "passowrd": "test"
+# }
+
+POST http://localhost:3001/products
+Content-Type: application/json
+
+
+# { 
+#     "name": "T-62",
+#     "variation": "B",
+#     "description": "Sovjetski tenk",
+#     "scale": "1:30",
+#     "quantity": 20,
+#     "price": 34.5,
+#     "image": "T-55A/t55.jpg",
+#     "modelType": {
+#         "name": "Srednji tenk"
+#         },
+#     "year": 1962,
+#     "tags": ["SSSR", "Rusija", "T-55", "Srednji tenk"],
+#     "country": {
+#         "name":"SSSR"
+#         },
+#     "manufacturer": {
+#         "name": "Zvezda"
+#         }
+# }
