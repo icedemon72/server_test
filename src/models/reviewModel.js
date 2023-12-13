@@ -5,6 +5,7 @@ const ObjectId = mongoose.Schema.Types.ObjectId;
 const reviewSchema = mongoose.Schema(   
     {
         user: {
+            type: Object,
             name: {
                 type: String,
                 requred: true
@@ -12,9 +13,11 @@ const reviewSchema = mongoose.Schema(
             id: {
                 type: ObjectId,
                 required: true
-            }
+            },
+            required: true
         },
         product: {
+            type: Object,
             name: {
                 type: String,
                 requred: true
@@ -22,7 +25,8 @@ const reviewSchema = mongoose.Schema(
             id: {
                 type: ObjectId,
                 required: true
-            }
+            },
+            required: true
         },
         score: {
             type: Number,

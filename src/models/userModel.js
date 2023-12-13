@@ -1,5 +1,7 @@
 import mongoose from 'mongoose';
 
+const ObjectId = mongoose.Schema.Types.ObjectId;
+
 const userSchema = mongoose.Schema(
     {
         username: {
@@ -15,12 +17,37 @@ const userSchema = mongoose.Schema(
             required:  [true, "Password is required!"]
         },
         name: {
-            type: String,
-            required: [true, "Name is required!"]
+            type: Object,
+            first: {
+                type: String,
+                required: [true, "First name is required!"]
+            },
+            last: {
+                type: String,
+                required: [true, "Last name is required!"]
+            },
+            required: true
         },
         address: {
             type: String,
             required: [true, "Address is required!"]
+        },
+        country: {
+            type: Object,
+            name: {
+                type: String
+            },
+            code: {
+                type: String
+            },
+            id: {
+                type: ObjectId
+            },
+            required: false
+        },
+        phone: {
+            type: String,
+            required: true
         },
         wallet: { // TODO: napraviti poseban server kao PayPal
             type: Number,

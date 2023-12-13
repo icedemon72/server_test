@@ -1,9 +1,16 @@
 import { handleAddManufacturer, handleDeleteManufacturer } from './controllers/manufacturerController.js';
 import { handleAddProduct, handleDeleteProduct/*, handleEditProduct */} from './controllers/productController.js';
+import { handleUserRegister } from './controllers/userController.js';
 import Country from './models/countryModel.js';
 import ModelType from './models/typeModel.js';
 
-export default function (app) {
+
+
+/**
+ * @param {Express} app
+ */
+
+export default (app) => {
     app.post('/product', async (req, res) => {
         handleAddProduct(req, res);
     });
@@ -33,6 +40,10 @@ export default function (app) {
             res.status(500).json({message: err.message});
         }
     });
+
+    app.post('/user/register', async (req, res) => {
+        handleUserRegister(req, res);
+    })
 
     // app.post('/add', async (req, res) => {
     //     try {

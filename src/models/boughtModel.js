@@ -5,6 +5,7 @@ const ObjectId = mongoose.Schema.Types.ObjectId;
 const boughtSchema = mongoose.Schema(
     {
         user: {
+            type: Object,
             name: {
                 type: String,
                 requred: true
@@ -12,9 +13,11 @@ const boughtSchema = mongoose.Schema(
             id: {
                 type: ObjectId,
                 required: true
-            }
+            },
+            required: true
         },
         product: {
+            type: Object,
             name: {
                 type: String,
                 requred: true
@@ -22,7 +25,12 @@ const boughtSchema = mongoose.Schema(
             id: {
                 type: ObjectId,
                 required: true
-            }
+            },
+            price: {
+                type: Number,
+                required: true
+            },
+            required: true
         }
     },
     {

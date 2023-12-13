@@ -5,12 +5,33 @@
 #     "passowrd": "test"
 # }
 
-POST http://localhost:3001/products
+GET http://localhost:3001/manufacturers/delete
 Content-Type: application/json
+
+{
+    "id": "6578d055cbe42b33f77f8082"
+}
+
+# {
+#     "username": "ice1",
+#     "email": "test2@gmail.com",
+#     "password": "test123",
+#     "name": {
+#         "first": "Test",
+#         "last": "Test"
+#     },
+#     "country": {
+#         "name": "Srbija"
+#     },
+#     "address": "Kosovska Mitrovica",
+#     "phone": "649653624",
+#     "role": "Admin"
+# }
+
 
 
 # { 
-#     "name": "T-62",
+#     "name": "T-64",
 #     "variation": "B",
 #     "description": "Sovjetski tenk",
 #     "scale": "1:30",

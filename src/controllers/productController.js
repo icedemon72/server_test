@@ -7,49 +7,22 @@ import Product from "../models/productModel.js";
 import Manufacturer from "../models/manufacturerModel.js";
 import Country from "../models/countryModel.js";
 import ModelType from "../models/typeModel.js";
+import { addProduct, deleteProduct } from "../services/productService.js";
 
-export async function handleAddProduct(req, res) {
+export const handleAddProduct = async (req, res) => {
     try {
         let product = {
             ...req.body
         }
 
-        let countryObj = await Country.findOne({"name": product.country.name}),
+        const countryObj = await Country.findOne({"name": product.country.name}),
             manObj = await Manufacturer.findOne({"name": product.manufacturer.name}),
             modelObj = await ModelType.findOne({"name": product.modelType.name});
 
-        // OVO MOZE DA SE FIX, TJ DA SE DRUGACIJE NAPISE
-        if(!countryObj || !manObj || !modelObj) {
-            res.status(500).json({message: 'Greška u odabiru zemlje, proizvodjača i/ili tipa modela!'});
-        } else {
-            product.country.id = countryObj._id;
-            product.manufacturer.id = manObj._id;
-            product.modelType.id = modelObj._id;
-
-            let productObj = await Product.findOne({ $and: [ 
-                {"name": product.name}, 
-                {"variation": product.variation},
-                {"year": product.year},
-                {"scale": product.scale},
-                {"country": product.country},
-                {"manufacturer": product.manufacturer}
-            ]});
-    
-            if(productObj) {
-                if(productObj.deleted) {
-                    await Product.updateOne({"_id": productObj._id}, {"$set" :{"deleted": false}})
-                    res.status(200).json(product);
-                } else {
-                    res.status(500).json({message: 'Već postoji ovaj proizvod!'});
-                }
-            } else {
-                await Product.create(product);
-                res.status(200).json(product);
-            }
-        }
-
+        const productObj = addProduct(product, countryObj, manObj, modelObj);
+        return res.status(200).json(productObj);
     } catch (err) {
-        console.log(err);
+        return res.status(500).send(err.message);
     }
 }
 
@@ -84,19 +57,11 @@ export async function handleAddProduct(req, res) {
 //     }
 // }
 
-export async function handleDeleteProduct(req, res) {
+export const handleDeleteProduct = async (req, res) => {
     try {
-        let productID = req.body.id;
-        let productObj = await Product.findById(productID);
-
-        if(productObj) {
-            productObj.deleted = true;
-            await productObj.save();
-        } else {
-            res.status(500).json({message: 'Proizvod ne postoji!'});
-        }
-
+        const done = deleteProduct(req.body.id);
+        return res.status(200).json(done);
     } catch(err) {
-        console.log(err);
+        return  res.status(500).send(err.message)
     }
 }

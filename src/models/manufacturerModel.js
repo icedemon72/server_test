@@ -9,6 +9,7 @@ const manufacturerSchema = mongoose.Schema(
             required: [true, 'Manufacturer name is required!']
         },
         country: {
+            type: Object,
             name: {
                 type: String
             },
